@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="x-rim-auto-match" content="none" />
+	<meta name="description" content="An application that can send text-to-speech voice to audio devices in real time." />
+	<meta name="keywords" content="robot,text to speech" />
+	<meta name="author" content="nutbread" />
+	<title>Robot</title>
+	<link rel="shortcut icon" href="favicon.png" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="script.js"></script>
+</head>
+<body>
+
+
+<div class="content_size">
+	<div class="header">
+		<a href="https://github.com/nutbread/robot" class="view_on_github">View on<br />Github</a>
+		<h1><span>Robot</span><span> - </span><span>Text-to-Speech Overlay</span></h1>
+	</div>
+	<div class="content_outer">
+	<div class="content"><div class="content_inner">
+		<div class="corner_icon_spacer"></div>
+		<p>
+			Robot is a Windows application that allows you to easily input text on the fly and have it spoken back on any audio device(s).
+			This can be used to quickly and easily send a text-to-speech voice to any audio output device.
+		</p>
+		<p style="clear:both;">
+			The application shows a small overlay on the screen when it is active that includes a text input, a message indicating the basic hotkeys, and a status bar.
+			This overlay can only be activated by the focus hotkey so that it cannot interrupt anything.
+		</p>
+
+		<div class="spacer"></div>
+		<div class="para"><h2>Downloads</h2></div>
+		<p>
+			Download complete package as a .zip:
+			<a href="https://raw.githubusercontent.com/nutbread/robot/master/packages/robot-vc14-x86.zip">32-bit</a> |
+			<a href="https://raw.githubusercontent.com/nutbread/robot/master/packages/robot-vc14-x64.zip">64-bit</a>
+		</p>
+		<p>
+			Or download individual files and put them together into a folder:
+		</p>
+		<div class="para"><ul>
+			<li>
+				robot.exe:
+				<a href="https://raw.githubusercontent.com/nutbread/robot/master/builds/vc14/x86/robot.exe">32-bit</a> |
+				<a href="https://raw.githubusercontent.com/nutbread/robot/master/builds/vc14/x64/robot.exe">64-bit</a>
+			</li>
+			<li>
+				robot.dll:
+				<a href="https://raw.githubusercontent.com/nutbread/robot/master/builds/vc14/x86/robot.dll">32-bit</a> |
+				<a href="https://raw.githubusercontent.com/nutbread/robot/master/builds/vc14/x64/robot.dll">64-bit</a>
+			</li>
+			<li>
+				<a href="https://raw.githubusercontent.com/nutbread/robot/master/builds/voice.vbs" download="voice.vbs" target="_blank">voice.vbs</a>
+			</li>
+			<li>
+				<a href="http://sourceforge.net/projects/sox/files/sox/" target="_blank" rel="noreferrer nofollow">sox</a>
+			</li>
+		</ul></div>
+		<p>
+			The executables provided above are built using Visual Studio 14.0.
+			Additional builds using gcc can be found in <a href="https://github.com/nutbread/robot/tree/master/packages" target="_blank">the packages directory</a> and
+			<a href="https://github.com/nutbread/robot/tree/master/builds/gcc" target="_blank">the builds directory</a>.
+		</p>
+
+		<div class="spacer"></div>
+		<div class="para"><h2>Preview</h2></div>
+		<p>
+			The overlay is a small rectangle that stays on top of windows and can only be focused using the hotkey.
+			It is slightly transparent when not active.
+		</p>
+		<div class="para center">
+			<div class="preview_box">
+				<div class="preview_top"><input type="text" class="preview_input" /></div>
+				<div class="preview_message">F1 for focus; F4 to close</div>
+				<div class="preview_bar"></div>
+			</div><br />
+			<em>This is what the overlay looks like by default.</em>
+		</div>
+		<p>
+			When text is being synthesized into a .wav file, a small bar below the message will appear in a red color.
+			When text is being spoken, the bar will appear blue.
+		</p>
+		<p>
+			Here are some examples of spoken text using the default voice installed on Windows 7, Microsoft Anna:
+		</p>
+		<div class="para"><ul>
+			<li>
+				<a href="samples/nofilters.ogg" target="_blank" class="audio">Example without filters</a>
+			</li>
+			<li>
+				<a href="samples/filters1.ogg" target="_blank" class="audio">Example with filters</a>
+			</li>
+			<li>
+				<a href="samples/filters6.ogg" target="_blank" class="audio">Example with grating, metallic filters</a>
+			</li>
+		</ul></div>
+
+		<div class="spacer"></div>
+		<div class="para"><h2>Description of required files</h2></div>
+		<p>
+			This application uses the following files to properly function:
+		</p>
+		<div class="para"><ul>
+			<li>
+				<strong>robot.exe</strong><br />
+				The application file itself which uses all the following files together.
+			</li>
+			<li>
+				<strong>robot.dll</strong><br />
+				An additional library file that supplies the hooking functions to temporarily block user input while the application has focus.
+				These functions are required to be in a .dll file rather than the .exe itself since they are hooked globally.
+			</li>
+			<li>
+				<strong>voice.vbs</strong><br />
+				A <a href="https://msdn.microsoft.com/en-us/library/t0aew7h6.aspx" target="_blank" rel="noreferrer nofollow">VBScript</a> file that converts the given text to a .wav file that is played back afterwards.
+				The text-to-speech generation is performed using this file for two reasons.<br />
+				<ol>
+					<li>
+						The code is very simple as a VBScript file, likely simpler than it would be in C++.
+					</li>
+					<li>
+						Depending on what type of process is using the Speech API (32-bit vs 64-bit,) different voices may be installed.
+						Usually using an 32-bit process will result in larger choices of voices.
+						So changing cscript.exe to an 32-bit version or 64-bit version may result in a different selection of voices.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<strong>cscript.exe</strong><br />
+				The executable that runs the voice.vbs file.
+				This is included on Windows by default.
+				It can be set to a 32-bit process by running <code style="white-space:nowrap;">"C:\Windows\SysWOW64\cscript"</code> instead.
+			</li>
+			<li>
+				<strong>sox.exe</strong><br />
+				An audio processing application that plays the audio to a device and can optionally apply filters.
+				A list of available filters can be found <a href="http://sox.sourceforge.net/sox.html" target="_blank" rel="noreferrer nofollow">on the SoX documentation page</a>, under "Effects".
+			</li>
+		</ul></div>
+		<p>
+			Robot.exe will take the text the user inputs, pass it to voice.vbs to generate a .wav file, and then pass the .wav file to sox.exe for playback and filtering.
+		</p>
+
+		<div class="spacer"></div>
+		<div class="para"><h2>Usage and settings</h2></div>
+		<p>
+			Some usage information and options can be displayed by running <code>robot.exe --help</code>.
+			For the sake of brevity, this does not show full descriptions of all available options.
+			Instead, they are described in more detail <a href="https://raw.githubusercontent.com/nutbread/robot/master/docs/options.txt" target="_blank">on this page</a>.
+		</p>
+		<p>
+			Furthermore, there is no user interface for editing the settings, nor a file to save the settings to.
+			Instead, users can create a batch file that executes robot.exe with any command line options.
+			For example:
+		</p>
+		<p>
+<code class="block">robot.exe ^
+	--voice "Microsoft Anna" ^
+	--rate 0 ^
+	--device "&lt;your-audio-device-here&gt;" ^
+	--exe-cscript "C:\Windows\SysWOW64\cscript" ^
+	--exe-voice "voice.vbs" ^
+	--exe-sox "sox" ^
+	-x center -y 80 ^
+	--filters pitch -400 bass +10</code>
+		</p>
+
+		<div class="spacer"></div>
+		<div class="para"><h2>Example fitlers</h2></div>
+		<div class="para"><ul>
+			<li>
+				<a href="samples/filters1.ogg" target="_blank" class="audio">Filters 1</a><br />
+				<code>pitch -400 bass +10</code>
+			</li>
+			<li>
+				<a href="samples/filters2.ogg" target="_blank" class="audio">Filters 2</a><br />
+				<code>tremolo 1000 80 pitch 400 gain 4</code>
+			</li>
+			<li>
+				<a href="samples/filters3.ogg" target="_blank" class="audio">Filters 3</a><br />
+				<code>chorus 0.4 0.8 20 0.5 0.10 2 -t pitch +200 bass +10 gain 4</code>
+			</li>
+			<li>
+				<a href="samples/filters4.ogg" target="_blank" class="audio">Filters 4</a><br />
+				<code>pitch +150 phaser 0.6 0.66 3 0.6 2 -t phaser 0.5 0.8 3 0.6 2 -s highpass 1000 gain 15</code>
+			</li>
+			<li>
+				<a href="samples/filters5.ogg" target="_blank" class="audio">Filters 5</a><br />
+				<code>chorus 0.4 0.8 20 0.5 0.10 2 -t echo 0.9 0.8 33 0.9 echo 0.7 0.7 10 0.2 echo 0.9 0.2 55 0.5 gain 10 bass +40 gain 13</code>
+			</li>
+			<li>
+				<a href="samples/filters6.ogg" target="_blank" class="audio">Filters 6</a><br />
+				<code>overdrive 10 echo 0.8 0.8 5 0.7 echo 0.8 0.7 6 0.7 echo 0.8 0.7 10 0.7 echo 0.8 0.7 12 0.7 echo 0.8 0.88 12 0.7 echo 0.8 0.88 30 0.7 echo 0.6 0.6 60 0.7 gain 13</code>
+			</li>
+		</ul></div>
+	</div></div>
+
+	<div class="corner_icon">
+		<svg class="svg_icon" svgns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+			<path class="svg_speaker" d="m 2.5,6.3333 1.6666667,0 L 7.5,3 7.5,13 4.1666667,9.6667 2.5,9.6667 Z" />
+			<path class="svg_wave" d="m 9.5,4 c 0,0 2.4,1.6 2.4,4 0,2.4 -2.4,4 -2.4,4" />
+			<path class="svg_cog" d="m 11.5,6.8007812 0,2.3984376 2.400391,0 0,-2.3984376 z" />
+			<path class="svg_cog" d="M 11.099609,2.3027344 9.4023438,4 11.099609,5.6972656 12.796875,4 Z" />
+			<path class="svg_cog" d="M 11.099609,10.302734 9.4023438,12 11.099609,13.697266 12.796875,12 Z" />
+		</svg>
+	</div>
+	<div class="corner_bubble corner_bubble_top_right"></div>
+	<div class="corner_bubble corner_bubble_bottom_left"></div>
+	<div class="corner_bubble corner_bubble_bottom_right"></div>
+
+	</div>
+</div>
+
+
+</body>
+</html>
