@@ -1,0 +1,100 @@
+Available options:
+
+-v, --voice <voice>
+	Set the voice to use. A list of voices can be found by running "voice.vbs list-voices".
+
+-r, --rate <rate>
+	Set the rate of the voice, in the range of [-10, 10]. Negative values are slower, positive values are faster.
+
+-c, --channels <channels>
+	Set the number of channels for the voice to use, either 1 or 2.
+
+-s, --sample-rate <sample rate>
+	Set the sample rate for the output. This must be a common sample rate of 8000, 16000, 22050, 44100, or 48000.
+
+--volume <volume>
+	Set the volume for the voice, in the range of [0, 100].
+
+-d, --device <device>
+	Set a device to output to. Voice will output to the default device if this option is never specified.
+	This option can be specified more than once, which makes the voice output to all devices listed.
+	A list of available audio devices can be found by running "robot.exe --help".
+	Some of the listed devices may appear truncated; these truncated names should be used rather than the full name.
+	(Be sure to put the value in "double quotes" so it is properly treated as a single value.)
+
+-f, --filters [filters...]
+	An set of filters to be passed to sox.exe when playing the audio. All arguments that follow this option will be
+	treated as filters, so all other options should come before this one.
+
+-x, --left <center | x-coordinate>
+	Set the position of the window. Set to "center" to have the window be automatically centered.
+
+-y, --top <center | y-coordinate>
+	Set the position of the window. Set to "center" to have the window be automatically centered.
+
+--right <x-coordinate>
+	Set the position of the window relative to the bottom-right corner.
+
+--bottom <y-coordinate>
+	Set the position of the window relative to the bottom-right corner.
+
+-w, --width <width>
+	Set the width of the window.
+
+-h, --height <height>
+	Set the height of the window.
+
+--white
+	Invert the colors of the window so it uses a white theme instead of a black one.
+
+-o, --opacity <opacity>
+	Set the opacity of the window when it is not focused, in the range of [0.0, 1.0], with 1.0 being fully opaque
+	and 0.0 being fully transparent.
+
+--opacity-active <opacity>
+	Set the opacity of the window when it IS focused, in the range of [0.0, 1.0], with 1.0 being fully opaque
+	and 0.0 being fully transparent.
+
+-t, --temp, --use-temp
+	Use the system temporary file directory for generated .wav files rather than the directory the executable is in.
+
+--message <message>
+	Set a custom message to be displayed on the window rather than the hotkey message. Setting it to an empty string
+	will result in the message not being displayed.
+
+--hotkey-focus <hotkey>
+	Set the hotkey for the focus key. This hotkey will toggle focus for the window.
+	A list of available key and flag combinations can be found by running "robot.exe --help".
+	Also note that hotkeys are not true hotkeys by default, meaning that they will not block other applications
+	from receiving the keystroke. To enable keystroke blocking, add the flag "block" to the hotkey.
+	Example: "ctrl shift block A"
+
+--hotkey-replay <hotkey>
+	Set the hotkey for the focus key. This hotkey will replay the most recent sound.
+
+--hotkey-stop <hotkey>
+	Set the hotkey for the stop key. This hotkey will stop playing the current sound.
+
+--hotkey-clear <hotkey>
+	Set the hotkey for the stop-and-clear key. This hotkey will stop playing all sounds and clear any queued text.
+
+--hotkey-exit <hotkey>
+	Set the hotkey for the exit key. This hotkey will close the application.
+
+--exe-cscript <exe>
+	Set the path to the cscript executable. This can be set to "C:\Windows\SysWOW64\cscript" to use the 32-bit version.
+
+--exe-voice <exe>
+	Set the path to the voice.vbs file.
+
+--exe-sox <exe>
+	Set the path to the sox.exe file.
+
+--dll <dll-file>
+	Set the name of the robot.dll library if it has been changed for some reason.
+
+-?, --help, --usage
+	Show basic usage information.
+
+--
+	No-op. This does nothing.
